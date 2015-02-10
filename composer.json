@@ -1,0 +1,18 @@
+{
+    "name": "dvandam/parser",
+    "require-dev": {
+        "phpunit/phpunit": "~4.5",
+        "mockery/mockery": "~0.9"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Danny van Dam",
+            "email": "d.van.dam@vnumedia.nl"
+        }
+    ]
+}
