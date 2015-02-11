@@ -43,4 +43,34 @@ class NodeTest extends PHPUnit_Framework_TestCase
             '%foo%' => new Node('Foo')
         ]));
     }
+
+    public function subNodeCombinations()
+    {
+        return [
+            [['%bar%' => new Node('Bar'), '%foo%' => new Node('Foo')], 'Foo Bar', false],
+            [['%bar%' => new Node('Bar'), '%foo%' => new Node('')], ' Bar', false],
+            [['%bar%' => new Node(''), '%foo%' => new Node('Foo')], 'Foo ', false],
+            [['%bar%' => new Node(''), '%foo%' => new Node('')], ' ', true],
+            [
+                ['%bar%' => new Node('Bar %baz%', ['%baz%' => new Node('Baz')]), '%foo%' => new Node('Foo')],
+                'Foo Bar Baz',
+                false
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider subNodeCombinations
+     * Sanity check for all possible combinations
+     *
+     * @param Node[] $subNodes
+     * @parem string $expectedValue
+     * @param boolean $isEmpty
+     */
+    public function testVariousSubNodeCombinations(array $subNodes, $expectedValue, $isEmpty)
+    {
+        $node = new Node('%foo% %bar%', $subNodes);
+        $this->assertEquals($expectedValue, (string)$node);
+        $this->assertEquals($isEmpty, $node->isEmpty());
+    }
 }

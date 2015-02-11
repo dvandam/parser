@@ -27,7 +27,11 @@ class Node
      */
     public function isEmpty()
     {
-        return empty($this->value) || $this->subNodesAreEmpty();
+        if (empty($this->value)) {
+            return true;
+        }
+
+        return $this->subNodesAreEmpty();
     }
 
     /**
@@ -35,9 +39,15 @@ class Node
      */
     private function subNodesAreEmpty()
     {
-        return !array_reduce($this->subNodes, function($carry, Node $subNode) {
-            return !$subNode->isEmpty() && $carry;
-        }, true);
+        if (count($this->subNodes) == 0) {
+            return false;
+        }
+        foreach ($this->subNodes as $subNode) {
+            if (!$subNode->isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
