@@ -16,7 +16,7 @@ class Node
      * @param string $value
      * @param Node[] $subNodes
      */
-    public function __construct($value, $subNodes = [])
+    public function __construct($value, array $subNodes = [])
     {
         $this->value = $value;
         $this->subNodes = $subNodes;
